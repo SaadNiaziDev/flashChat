@@ -53,16 +53,24 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 height: 100.0,
               ),
             ),
-            AnimatedTextKit(
-              animatedTexts: [
-                FlickerAnimatedText('Flash Chat',textStyle: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.w900
-                )),
-              ],
-              onTap: () {
-                print('Tap happened!');
-              },
+            SizedBox(
+              width: 250,
+              height: 70,
+              child: Center(
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 70,
+                    color: Colors.black,
+                  ),
+                  child: AnimatedTextKit(
+                    repeatForever: true,
+                    animatedTexts: [
+                      FlickerAnimatedText('Flash Chat',speed: Duration(milliseconds: 2000)),
+                    ],
+
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 48.0,
