@@ -3,6 +3,8 @@ import 'package:flash_chat/screens/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/roundedbuttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'chat_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id='registration_screen';
@@ -12,7 +14,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-
+  final _auth=FirebaseAuth.instance;
   String email;
   String password;
   @override
@@ -60,8 +62,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             RoundButtons(
               colour: Colors.blueAccent,
               title: 'Register',
-              ontap: () {
-                Navigator.pushNamed(context, WelcomeScreen.id);
+              ontap: () async{
+                try{
+                final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                if(newUser != null){
+                  Navigator.pushNamed(context, ChatScreen.id);
+                }
+                }
+                catch (e){
+                  print(e);
+                }
               },
             ),
           ],
